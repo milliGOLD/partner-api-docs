@@ -1,7 +1,8 @@
 ---
-title: API Reference
+title: Partner API
 
 toc_footers:
+  - Copyright © milliGOLD.in
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -16,11 +17,31 @@ meta:
     content: Documentation for the milliGOLD Partner API
 ---
 
+# Introduction
+
+Welcome to the Partner API Documentation site for milliGOLD! Our API offers a wide range of functionalities to seamlessly integrate milliGOLD's services into your applications.
+
+With our API, you can access and manipulate various aspects of milliGOLD accounts, transactions, subscriptions, and more. Let's take a closer look at some of the key features:
+
+- Account Management: Verify the existence of an account and retrieve its details using the registered mobile number. You can also create new accounts by providing the customer's full name, email address, and mobile number.
+
+- Balance and Pricing: Retrieve the gold balance of a customer and obtain the current retail price of milliGOLD per gram.
+
+- Transactions: Create new transactions with ease by specifying the registered mobile number, amount, and payment type. You can also fetch recent transaction details using the customer's mobile number.
+
+- Subscription Plans: Set up recurring payment plans by creating new subscriptions. Define the customer's name, email address, mobile number, amount, debit date, and duration for seamless subscription management.
+
+- Redemption Requests: Enable customers to redeem their gold by submitting requests via the API. Specify the registered mobile number, gold gram quantity, and redemption type such as Coin/Bar, Jewelry Shop, RBI Gold Bond, Bank Settlement, or Reward Points.
+
+- Profile and Banking Information: Update and maintain customer profiles with details such as full name, date of birth, gender, email address, mobile number, address, and pin code. Additionally, store bank account information, including the account number, account name, and IFSC code.
+
+- Nominee Details: Set nominee information for the account, providing the nominee's name, date of birth, and relationship.
+
 # Breaking changes policy
 
-### We may publish incremental non-breaking changes to API endpoints. Examples of non-breaking changes include:
+We may publish incremental non-breaking changes to API endpoints. Examples of non-breaking changes include:
 
-- New endpoints created.
+- Addition of new endpoints.
 - Adding optional parameters added to existing endpoints, or changing the default value of parameters.
 - Adding new request headers, or changing the default value of request headers.
 - Adding new fields to response objects. When you make API requests, your system must be prepared to receive more fields than you might have in the past.
@@ -30,7 +51,7 @@ meta:
 
 # Access Tokens
 
-All requests to the Partner API must be made with an access token. Access tokens are created by making a request to the authorization `/auth/token` endpoint with your `partnerId` and `partnerSecret` values.
+All requests to the Partner API must be made with an access token. Access tokens are created by making a request to the authentication endpoint with your `partnerId` and `partnerSecret` values.
 
 <aside class="warning">
 The access tokens created with partner credentials are only for secure, server-side access to user data. Don't hard code access tokens or partner secret in mobile apps, or in front-end JavaScript web apps, or publish them to social media.
@@ -42,21 +63,21 @@ Access tokens can't be refreshed. The appropriate pattern is to request a new on
 
 ### Request/Response
 
-The response will be JSON formatted. For more details, see the related Create Access Token endpoint documentation.
+The response will be JSON formatted. For more details, see the related [Create Access Token endpoint](#create-access-token) documentation.
 
-| Request              |                                     |
-| -------------------- | ----------------------------------- |
-| URL                  | `{BASE_URL}/partner/auth/token`     |
-| Method               | `POST`                              |
-| Content-Type         | `application/x-www-form-urlencoded` |
-| Body (form encoded): | partnerId=(your partner id)         |
-|                      | partnerSecret=(your partner secret) |
+| Request      |                                       |
+| ------------ | ------------------------------------- |
+| URL          | `{BASE_URL}/auth/token`               |
+| Method       | `POST`                                |
+| Content-Type | `application/x-www-form-urlencoded`   |
+| Body:        | `partnerId`=[your partner id]         |
+|              | `partnerSecret`=[your partner secret] |
 
-| Response    |                                                                                               |
-| ----------- | --------------------------------------------------------------------------------------------- |
-| accessToken | The Access Token you will use for Partner API requests.                                       |
-| expiresIn   | Number of seconds until the access token expires (can be added to the `createdAt` timestamp). |
-| createdAt   | A timestamp when the token was created.                                                       |
+| Response      |                                                                                               |
+| ------------- | --------------------------------------------------------------------------------------------- |
+| `accessToken` | The Access Token you will use for Partner API requests.                                       |
+| `expiresIn`   | Number of seconds until the access token expires (can be added to the `createdAt` timestamp). |
+| `createdAt`   | A timestamp when the token was created.                                                       |
 
 # Using the Partner API
 
@@ -77,7 +98,7 @@ All requests to Data API endpoints should include the Authorization header.
 | `Authorization` | `Bearer your-access-token-here` | Required for all API endpoints. |
 
 <aside class="notice">
-Note that there is a single white space between the "Bearer" and the access token value, and this is all one header. For example: <code>`Authorization: Bearer your-access-token-here`</code>
+Note that there is a single white space between the "Bearer" and the access token value, and this is all one header. For example: <code>Authorization: Bearer your-access-token-here</code>
 </aside>
 
 ### Request Format
@@ -112,7 +133,7 @@ All requests to the Partner API are subject to rate limiting. You will be limite
 
 ### Response Headers
 
-The error Response from the Partner API will include rate limiting headers. You can use these headers to avoid exceeding the allotted request capacity.
+The rate limit error Response from the Partner API will include the following headers. You can use these headers to avoid exceeding the allotted request capacity.
 
 | HTTP Method              | Description                                                      |
 | ------------------------ | ---------------------------------------------------------------- |
@@ -144,7 +165,7 @@ curl --location 'https://{BASE_URL}/auth/token' \
 }
 ```
 
-This endpoint will create an access token, which should be used to fetch data from the other endpoints
+This endpoint will create an access token, which should be used to authorize yourself before trying to fetch data from other endpoints
 
 ### HTTP Request
 
@@ -158,10 +179,10 @@ This endpoint will create an access token, which should be used to fetch data fr
 
 ### Request Body
 
-| Parameter       | Description          |
-| --------------- | -------------------- |
-| `partnerId`     | your partner ID.     |
-| `partnerSecret` | your partner secret. |
+| Parameter       | Description         |
+| --------------- | ------------------- |
+| `partnerId`     | your partner ID     |
+| `partnerSecret` | your partner secret |
 
 # Gold Rate
 
@@ -243,6 +264,75 @@ This endpoint will fetch information about the user with the given mobile number
 ### HTTP Request
 
 `GET https://{BASE_URL}/user/info/{MOBILE_NUMBER}`
+
+### Headers
+
+| Name            | Description                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
+
+## Get User Transactions
+
+```shell
+curl --location 'https://{BASE_URL}/user/transactions/{MOBILE_NUMBER}' \
+--header 'Authorization: Bearer <your access token here>'
+```
+
+> The above command returns JSON structured like this if the user exists:
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "clafjgk3y79230scg56254p7xz",
+      "goldAmount": 0.0002541554414680019,
+      "amount": 1,
+      "amountWithoutGst": 0.9708737864077672,
+      "cgstAmount": 0.01456310679611651,
+      "sgstAmount": 0.01456310679611651,
+      "goldRate": 3820,
+      "paymentType": "UPI",
+      "paymentStatus": "SUCCESS",
+      "createdAt": "2019-11-21T21:41:59.000Z",
+      "userId": "clafj9ktm399174cg5wwm72ouk"
+    },
+    {
+      "id": "clafjgk3z79232scg5eek4une5",
+      "goldAmount": 0.0002541554414680019,
+      "amount": 1,
+      "amountWithoutGst": 0.9708737864077672,
+      "cgstAmount": 0.01456310679611651,
+      "sgstAmount": 0.01456310679611651,
+      "goldRate": 3820,
+      "paymentType": "SUBSCRIPTION",
+      "paymentStatus": "SUCCESS",
+      "createdAt": "2019-11-15T18:47:08.000Z",
+      "userId": "clafj9ktm399174cg5wwm72ouk"
+    }
+  ]
+}
+```
+
+> If a user with the given mobile number does not exist, this endpoint will return a 404 status with the following JSON response:
+
+```json
+{
+  "success": false,
+  "error": "The requested resource was not found",
+  "errorCode": "20904ccf-a0e4-40c3-bfb2-14e292ece75a"
+}
+```
+
+This endpoint will fetch the transactions of the user with the given mobile number.
+
+<aside class="notice">
+The data object in the response will always be an array even if there are zero or one transactions returned
+</aside>
+
+### HTTP Request
+
+`GET https://{BASE_URL}/user/transactions/{MOBILE_NUMBER}`
 
 ### Headers
 
