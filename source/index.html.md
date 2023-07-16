@@ -702,5 +702,3 @@ A '*' next to a property signifies that it is a required property
 | `mobileNumber*` | The mobile number of the user               |
 | `countryCode*`  | The country code of the user's phone number |
 | `amount*`       | The rupee amount                            |
-
-These values represent different gender identities or options for the `gender` field in the JSON body.
