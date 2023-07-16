@@ -329,8 +329,8 @@ curl --location 'https://{BASE_URL}/partner/user/create' \
       "middleName": null,
       "lastName": "Account",
       "deleted": false,
-      "createdAt": "2023-07-16T12:40:39.977Z",
-      "updatedAt": "2023-07-16T12:40:39.977Z",
+      "createdAt": "2023-02-11T12:40:39.977Z",
+      "updatedAt": "2023-02-11T12:40:39.977Z",
       "userId": "cn17h9z6eyua78wme67tnc04"
     },
     "nominee": {
@@ -342,8 +342,8 @@ curl --location 'https://{BASE_URL}/partner/user/create' \
       "relationship": "Mother",
       "dateOfBirth": "1995-08-19",
       "deleted": false,
-      "createdAt": "2023-07-16T12:40:40.015Z",
-      "updatedAt": "2023-07-16T12:40:40.015Z",
+      "createdAt": "2023-02-11T12:40:40.015Z",
+      "updatedAt": "2023-02-11T12:40:40.015Z",
       "userId": "cn17h9z6eyua78wme67tnc04"
     }
   }
@@ -566,7 +566,7 @@ These values represent different gender identities or options for the `gender` f
 ## Get User Transactions
 
 ```shell
-curl --location 'https://{BASE_URL}/transactions/{MOBILE_NUMBER}' \
+curl --location 'https://{BASE_URL}/transaction/{MOBILE_NUMBER}' \
 --header 'Authorization: Bearer <your access token here>'
 ```
 
@@ -624,10 +624,83 @@ The data object in the response will always be an array even if there are zero o
 
 ### HTTP Request
 
-`GET https://{BASE_URL}/transactions/{MOBILE_NUMBER}`
+`GET https://{BASE_URL}/transaction/{MOBILE_NUMBER}`
 
 ### Headers
 
 | Name            | Description                                                                                           |
 | --------------- | ----------------------------------------------------------------------------------------------------- |
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
+
+## Create Transaction
+
+```shell
+curl --location 'https://{BASE_URL}/partner/transaction/create' \
+--header 'Authorization: Bearer <your access token here>' \
+--header 'Content-Type: application/json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data": {
+        "mobileNumber": "1234567890",
+        "countryCode": "91",
+        "amount": 1
+    }
+}'
+```
+
+> The above command returns JSON structured like this if the transaction has been created successfully:
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "hybzln6kk0jlxj2g7s41nueu",
+    "goldAmount": 0.0008738737951465051,
+    "amount": 1,
+    "amountWithoutGst": 0.9708737864077672,
+    "cgstAmount": 0.014563106796116507,
+    "sgstAmount": 0.014563106796116507,
+    "goldRate": 1111,
+    "paymentType": "PARTNER",
+    "paymentStatus": "SUCCESS",
+    "createdAt": "2023-03-23T16:46:42.738Z",
+    "userId": "no8y6elzzrgjc4n2d6f65iy0"
+  }
+}
+```
+
+> If a user with the given mobile number does not exist, this endpoint will return a 404 status with the following JSON response:
+
+```json
+{
+  "success": false,
+  "error": "The requested resource was not found",
+  "errorCode": "826697c2-6aa3-4416-b24f041762803e61"
+}
+```
+
+This endpoint will create a new sale transaction and credit the gold amount to the user with the inputted mobile number
+
+### HTTP Request
+
+`CREATE https://{BASE_URL}/user/transaction/create`
+
+### Headers
+
+| Name            | Description                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
+
+<aside class="notice">
+A '*' next to a property signifies that it is a required property 
+</aside>
+
+### Body
+
+| Name            | Description                                 |
+| --------------- | ------------------------------------------- |
+| `mobileNumber*` | The mobile number of the user               |
+| `countryCode*`  | The country code of the user's phone number |
+| `amount*`       | The rupee amount                            |
+
+These values represent different gender identities or options for the `gender` field in the JSON body.
