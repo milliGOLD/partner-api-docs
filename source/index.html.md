@@ -683,7 +683,7 @@ This endpoint will create a new sale transaction and credit the gold amount to t
 
 ### HTTP Request
 
-`CREATE https://{BASE_URL}/user/transaction/create`
+`POST https://{BASE_URL}/user/transaction/create`
 
 ### Headers
 
