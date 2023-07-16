@@ -343,7 +343,7 @@ The data object in the response will always be an array even if there are zero o
 ## Create User
 
 ```shell
-curl --location 'http://local.app.milligold.in:3000/api/partner/user/create' \
+curl --location 'https://{BASE_URL}/partner/user/create' \
 --header 'Authorization: Bearer <your access token here>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -429,11 +429,7 @@ curl --location 'http://local.app.milligold.in:3000/api/partner/user/create' \
 }
 ```
 
-- This endpoint will create a new user with the given mobile number and inputted user information.
-
-<aside class="notice">
-The data object in the response will always be an array even if there are zero or one transactions returned
-</aside>
+This endpoint will create a new user with the given mobile number and inputted user information.
 
 ### HTTP Request
 
@@ -446,7 +442,7 @@ The data object in the response will always be an array even if there are zero o
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
 
 <aside class="notice">
-An '*' next to a property signifies that it is a required property 
+A '*' next to a property signifies that it is a required property 
 </aside>
 
 ### Body
@@ -484,6 +480,145 @@ An '*' next to a property signifies that it is a required property
 | `gender`        | The gender of the nominee                    |
 | `relationship*` | The relationship of the nominee to the user  |
 | `dateOfBirth*`  | The date of birth of the nominee (YYY-MM-DD) |
+
+The possible values for the `gender` field are:
+
+- `MALE`
+- `FEMALE`
+- `NON_BINARY`
+- `OTHER`
+- `UNKNOWN`
+
+These values represent different gender identities or options for the `gender` field in the JSON body.
+
+## Update User
+
+```shell
+curl --location 'https://{BASE_URL}/partner/user/update/{MOBILE_NUMBER}' \
+--header 'Authorization: Bearer <your access token here>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data": {
+        "name": "Test User",
+        "email": "test@example.com",
+        "mobileNumber": "1234567890",
+        "countryCode": "91",
+        "gender": "FEMALE",
+        "birthday": "2000-01-01",
+        "address": "India",
+        "pincode": "123456",
+        "bankAccount": {
+            "accountNumber": "0987654321",
+            "ifscCode": "KKBK0000261",
+            "firstName": "Test",
+            "lastName": "Account"
+        },
+        "nominee": {
+            "firstName": "Test",
+            "lastName": "Nominee",
+            "gender": "MALE",
+            "relationship": "Mother",
+            "dateOfBirth": "1995-08-19"
+        }
+    }
+}'
+```
+
+> The above command returns JSON structured like this if the user has been created successfully:
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "no8y6elzzrgjc4n2d6f65iy0",
+    "name": "Test User",
+    "email": "test@example.com",
+    "countryCode": "91",
+    "mobileNumber": "1234567890",
+    "gender": "FEMALE",
+    "birthday": "2000-1-1",
+    "upiId": "milligold.911234567890@icici",
+    "address": "India",
+    "pincode": "123456",
+    "goldBalance": 0,
+    "bankAccount": {
+      "id": "z92xbbsr0rxjgljpldovyaop",
+      "accountNumber": "0987654321",
+      "ifscCode": "KKBK0000261",
+      "firstName": "Test",
+      "middleName": null,
+      "lastName": "Account"
+    },
+    "nominee": {
+      "id": "y4j0g0llgp6h3u2ggrtyyjm1",
+      "firstName": "Test",
+      "middleName": null,
+      "lastName": "Nominee",
+      "gender": "MALE",
+      "relationship": "Mother",
+      "dateOfBirth": "1995-8-19"
+    }
+  }
+}
+```
+
+> If a user with the given mobile number does not exist, this endpoint will return a 404 status with the following JSON response:
+
+```json
+{
+  "success": false,
+  "error": "The requested resource was not found",
+  "errorCode": "5b5ece7f-5629-4a0b-bb69f5e4e4261bb1"
+}
+```
+
+This endpoint will update a user's information with the given mobile number and inputted user information.
+
+### HTTP Request
+
+`PATCH https://{BASE_URL}/user/update/{MOBILE_NUMBER}`
+
+### Headers
+
+| Name            | Description                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
+
+### Body
+
+| Name           | Description                                 |
+| -------------- | ------------------------------------------- |
+| `name`         | The name of the user                        |
+| `email`        | The email address of the user               |
+| `mobileNumber` | The mobile number of the user               |
+| `countryCode`  | The country code of the user's phone number |
+| `gender`       | The gender of the user                      |
+| `birthday`     | The birthday of the user (YYY-MM-DD)        |
+| `address`      | The address of the user                     |
+| `pincode`      | The pincode of the user's address           |
+| `bankAccount`  | The bank account details of the user        |
+| `nominee`      | The nominee details of the user             |
+
+`bankAccount` Object
+
+| Name            | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `accountNumber` | The bank account number of the user              |
+| `ifscCode`      | The IFSC code of the user's bank                 |
+| `firstName`     | The first name associated with the bank account  |
+| `middleName`    | The middle name associated with the bank account |
+| `lastName`      | The last name associated with the bank account   |
+
+`nominee` Object
+
+| Name           | Description                                  |
+| -------------- | -------------------------------------------- |
+| `firstName`    | The first name of the nominee                |
+| `middleName`   | The middle name of the nominee               |
+| `lastName`     | The last name of the nominee                 |
+| `gender`       | The gender of the nominee                    |
+| `relationship` | The relationship of the nominee to the user  |
+| `dateOfBirth`  | The date of birth of the nominee (YYY-MM-DD) |
 
 The possible values for the `gender` field are:
 
