@@ -691,10 +691,6 @@ This endpoint will create a new sale transaction and credit the gold amount to t
 | --------------- | ----------------------------------------------------------------------------------------------------- |
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
 
-<aside class="notice">
-A '*' next to a property signifies that it is a required property 
-</aside>
-
 ### Body
 
 | Name            | Description                                 |
@@ -702,3 +698,7 @@ A '*' next to a property signifies that it is a required property
 | `mobileNumber*` | The mobile number of the user               |
 | `countryCode*`  | The country code of the user's phone number |
 | `amount*`       | The rupee amount                            |
+
+<aside class="notice">
+A '*' next to a property signifies that it is a required property 
+</aside>
