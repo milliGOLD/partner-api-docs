@@ -271,75 +271,6 @@ This endpoint will fetch information about the user with the given mobile number
 | --------------- | ----------------------------------------------------------------------------------------------------- |
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
 
-## Get User Transactions
-
-```shell
-curl --location 'https://{BASE_URL}/user/transactions/{MOBILE_NUMBER}' \
---header 'Authorization: Bearer <your access token here>'
-```
-
-> The above command returns JSON structured like this if the user exists:
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "clafjgk3y79230scg56254p7xz",
-      "goldAmount": 0.0002541554414680019,
-      "amount": 1,
-      "amountWithoutGst": 0.9708737864077672,
-      "cgstAmount": 0.01456310679611651,
-      "sgstAmount": 0.01456310679611651,
-      "goldRate": 3820,
-      "paymentType": "UPI",
-      "paymentStatus": "SUCCESS",
-      "createdAt": "2019-11-21T21:41:59.000Z",
-      "userId": "clafj9ktm399174cg5wwm72ouk"
-    },
-    {
-      "id": "clafjgk3z79232scg5eek4une5",
-      "goldAmount": 0.0002541554414680019,
-      "amount": 1,
-      "amountWithoutGst": 0.9708737864077672,
-      "cgstAmount": 0.01456310679611651,
-      "sgstAmount": 0.01456310679611651,
-      "goldRate": 3820,
-      "paymentType": "SUBSCRIPTION",
-      "paymentStatus": "SUCCESS",
-      "createdAt": "2019-11-15T18:47:08.000Z",
-      "userId": "clafj9ktm399174cg5wwm72ouk"
-    }
-  ]
-}
-```
-
-> If a user with the given mobile number does not exist, this endpoint will return a 404 status with the following JSON response:
-
-```json
-{
-  "success": false,
-  "error": "The requested resource was not found",
-  "errorCode": "20904ccf-a0e4-40c3-bfb2-14e292ece75a"
-}
-```
-
-This endpoint will fetch the transactions of the user with the given mobile number.
-
-<aside class="notice">
-The data object in the response will always be an array even if there are zero or one transactions returned
-</aside>
-
-### HTTP Request
-
-`GET https://{BASE_URL}/user/transactions/{MOBILE_NUMBER}`
-
-### Headers
-
-| Name            | Description                                                                                           |
-| --------------- | ----------------------------------------------------------------------------------------------------- |
-| `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
-
 ## Create User
 
 ```shell
@@ -629,3 +560,74 @@ The possible values for the `gender` field are:
 - `UNKNOWN`
 
 These values represent different gender identities or options for the `gender` field in the JSON body.
+
+# Transaction
+
+## Get User Transactions
+
+```shell
+curl --location 'https://{BASE_URL}/transactions/{MOBILE_NUMBER}' \
+--header 'Authorization: Bearer <your access token here>'
+```
+
+> The above command returns JSON structured like this if the user exists:
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "clafjgk3y79230scg56254p7xz",
+      "goldAmount": 0.0002541554414680019,
+      "amount": 1,
+      "amountWithoutGst": 0.9708737864077672,
+      "cgstAmount": 0.01456310679611651,
+      "sgstAmount": 0.01456310679611651,
+      "goldRate": 3820,
+      "paymentType": "UPI",
+      "paymentStatus": "SUCCESS",
+      "createdAt": "2019-11-21T21:41:59.000Z",
+      "userId": "clafj9ktm399174cg5wwm72ouk"
+    },
+    {
+      "id": "clafjgk3z79232scg5eek4une5",
+      "goldAmount": 0.0002541554414680019,
+      "amount": 1,
+      "amountWithoutGst": 0.9708737864077672,
+      "cgstAmount": 0.01456310679611651,
+      "sgstAmount": 0.01456310679611651,
+      "goldRate": 3820,
+      "paymentType": "SUBSCRIPTION",
+      "paymentStatus": "SUCCESS",
+      "createdAt": "2019-11-15T18:47:08.000Z",
+      "userId": "clafj9ktm399174cg5wwm72ouk"
+    }
+  ]
+}
+```
+
+> If a user with the given mobile number does not exist, this endpoint will return a 404 status with the following JSON response:
+
+```json
+{
+  "success": false,
+  "error": "The requested resource was not found",
+  "errorCode": "20904ccf-a0e4-40c3-bfb2-14e292ece75a"
+}
+```
+
+This endpoint will fetch the transactions of a user with the given mobile number.
+
+<aside class="notice">
+The data object in the response will always be an array even if there are zero or one transactions returned
+</aside>
+
+### HTTP Request
+
+`GET https://{BASE_URL}/transactions/{MOBILE_NUMBER}`
+
+### Headers
+
+| Name            | Description                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
