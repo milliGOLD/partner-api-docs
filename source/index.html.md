@@ -339,3 +339,158 @@ The data object in the response will always be an array even if there are zero o
 | Name            | Description                                                                                           |
 | --------------- | ----------------------------------------------------------------------------------------------------- |
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
+
+## Create User
+
+```shell
+curl --location 'http://local.app.milligold.in:3000/api/partner/user/create' \
+--header 'Authorization: Bearer <your access token here>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "data": {
+        "name": "Test User",
+        "email": "test@example.com",
+        "mobileNumber": "1234567890",
+        "countryCode": "91",
+        "gender": "MALE",
+        "birthday": "2000-01-01",
+        "address": "India",
+        "pincode": "123456",
+        "bankAccount": {
+            "accountNumber": "1234567890",
+            "ifscCode": "KKBK0000261",
+            "firstName": "Test",
+            "lastName": "Account"
+        },
+        "nominee": {
+            "firstName": "Test",
+            "lastName": "Nominee",
+            "gender": "FEMALE",
+            "relationship": "Mother",
+            "dateOfBirth": "1995-08-19"
+        }
+    }
+}'
+```
+
+> The above command returns JSON structured like this if the user has been created successfully:
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "cn17h9z6eyua78wme67tnc04",
+    "name": "Test User",
+    "email": "test@example.com",
+    "countryCode": "91",
+    "mobileNumber": "1234567890",
+    "gender": "MALE",
+    "birthday": "2000-01-01",
+    "upiId": "milligold.911234567890@icici",
+    "address": "India",
+    "pincode": "123456",
+    "goldBalance": 0,
+    "bankAccount": {
+      "id": "kulqr1et45y9w8bqmll44jwz",
+      "accountNumber": "1234567890",
+      "ifscCode": "KKBK0000261",
+      "firstName": "Test",
+      "middleName": null,
+      "lastName": "Account",
+      "deleted": false,
+      "createdAt": "2023-07-16T12:40:39.977Z",
+      "updatedAt": "2023-07-16T12:40:39.977Z",
+      "userId": "cn17h9z6eyua78wme67tnc04"
+    },
+    "nominee": {
+      "id": "fhl24bawak2zjfvl8jfckckx",
+      "firstName": "Test",
+      "middleName": null,
+      "lastName": "Nominee",
+      "gender": "FEMALE",
+      "relationship": "Mother",
+      "dateOfBirth": "1995-08-19",
+      "deleted": false,
+      "createdAt": "2023-07-16T12:40:40.015Z",
+      "updatedAt": "2023-07-16T12:40:40.015Z",
+      "userId": "cn17h9z6eyua78wme67tnc04"
+    }
+  }
+}
+```
+
+> If a user with the given mobile number already exists, this endpoint will return a 400 status with the following JSON response:
+
+```json
+{
+  "success": false,
+  "error": "User with given mobile number already exists",
+  "errorCode": "966b9329-1c68-4cf6-8ac07071f7198734"
+}
+```
+
+- This endpoint will create a new user with the given mobile number and inputted user information.
+
+<aside class="notice">
+The data object in the response will always be an array even if there are zero or one transactions returned
+</aside>
+
+### HTTP Request
+
+`POST https://{BASE_URL}/user/create`
+
+### Headers
+
+| Name            | Description                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------- |
+| `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
+
+<aside class="notice">
+An '*' next to a property signifies that it is a required property 
+</aside>
+
+### Body
+
+| Name            | Description                                 |
+| --------------- | ------------------------------------------- |
+| `name*`         | The name of the user                        |
+| `email`         | The email address of the user               |
+| `mobileNumber*` | The mobile number of the user               |
+| `countryCode*`  | The country code of the user's phone number |
+| `gender`        | The gender of the user                      |
+| `birthday`      | The birthday of the user (YYY-MM-DD)        |
+| `address`       | The address of the user                     |
+| `pincode`       | The pincode of the user's address           |
+| `bankAccount`   | The bank account details of the user        |
+| `nominee`       | The nominee details of the user             |
+
+`bankAccount` Object
+
+| Name             | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `accountNumber*` | The bank account number of the user              |
+| `ifscCode*`      | The IFSC code of the user's bank                 |
+| `firstName*`     | The first name associated with the bank account  |
+| `middleName`     | The middle name associated with the bank account |
+| `lastName*`      | The last name associated with the bank account   |
+
+`nominee` Object
+
+| Name            | Description                                  |
+| --------------- | -------------------------------------------- |
+| `firstName*`    | The first name of the nominee                |
+| `middleName`    | The middle name of the nominee               |
+| `lastName*`     | The last name of the nominee                 |
+| `gender`        | The gender of the nominee                    |
+| `relationship*` | The relationship of the nominee to the user  |
+| `dateOfBirth*`  | The date of birth of the nominee (YYY-MM-DD) |
+
+The possible values for the `gender` field are:
+
+- `MALE`
+- `FEMALE`
+- `NON_BINARY`
+- `OTHER`
+- `UNKNOWN`
+
+These values represent different gender identities or options for the `gender` field in the JSON body.
