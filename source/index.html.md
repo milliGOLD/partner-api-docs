@@ -129,7 +129,7 @@ Partner API endpoints will return JSON formatted strings.
 
 # Rate Limiting
 
-All requests to the Partner API are subject to rate limiting. You will be limited to 10 requests every 20 seconds from the first request. Every 20 seconds, the limit will reset. When the rate limit is exceeded, an HTTP 429 Too many requests response will be issued.
+All requests to the Partner API are subject to rate limiting. You will be limited to 20 requests every 10 seconds from the first request. Every 10 seconds, the limit will reset. When the rate limit is exceeded, an HTTP 429 Too many requests response will be issued.
 
 ### Response Headers
 
