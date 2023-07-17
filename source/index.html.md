@@ -517,18 +517,15 @@ This endpoint will update a user's information with the given mobile number and 
 
 ### Body
 
-| Name           | Description                                 |
-| -------------- | ------------------------------------------- |
-| `name`         | The name of the user                        |
-| `email`        | The email address of the user               |
-| `mobileNumber` | The mobile number of the user               |
-| `countryCode`  | The country code of the user's phone number |
-| `gender`       | The gender of the user                      |
-| `birthday`     | The birthday of the user (YYY-MM-DD)        |
-| `address`      | The address of the user                     |
-| `pincode`      | The pincode of the user's address           |
-| `bankAccount`  | The bank account details of the user        |
-| `nominee`      | The nominee details of the user             |
+| Name          | Description                          |
+| ------------- | ------------------------------------ |
+| `email`       | The email address of the user        |
+| `gender`      | The gender of the user               |
+| `birthday`    | The birthday of the user (YYY-MM-DD) |
+| `address`     | The address of the user              |
+| `pincode`     | The pincode of the user's address    |
+| `bankAccount` | The bank account details of the user |
+| `nominee`     | The nominee details of the user      |
 
 `bankAccount` Object
 
