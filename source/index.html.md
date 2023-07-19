@@ -563,7 +563,7 @@ These values represent different gender identities or options for the `gender` f
 ## Get User Transactions
 
 ```shell
-curl --location 'https://{BASE_URL}/transaction/{MOBILE_NUMBER}' \
+curl --location 'https://{BASE_URL}/transaction/{MOBILE_NUMBER}?startDate=2023-06-01&endDate=2023-07-31' \
 --header 'Authorization: Bearer <your access token here>'
 ```
 
@@ -574,30 +574,28 @@ curl --location 'https://{BASE_URL}/transaction/{MOBILE_NUMBER}' \
   "success": true,
   "data": [
     {
-      "id": "clafjgk3y79230scg56254p7xz",
-      "goldAmount": 0.0002541554414680019,
+      "id": "adzzl3o8byc7a4demplcyv0g",
+      "goldAmount": 0.0008738737951465051,
       "amount": 1,
       "amountWithoutGst": 0.9708737864077672,
-      "cgstAmount": 0.01456310679611651,
-      "sgstAmount": 0.01456310679611651,
-      "goldRate": 3820,
-      "paymentType": "UPI",
+      "gstAmount": 0.029126213592233014,
+      "goldRate": 1111,
+      "paymentType": "PARTNER",
       "paymentStatus": "SUCCESS",
-      "createdAt": "2019-11-21T21:41:59.000Z",
-      "userId": "clafj9ktm399174cg5wwm72ouk"
+      "createdAt": "2023-07-16T16:27:25.000Z",
+      "userId": "no8y6elzzrgjc4n2d6f65iy0"
     },
     {
-      "id": "clafjgk3z79232scg5eek4une5",
-      "goldAmount": 0.0002541554414680019,
+      "id": "f4wyd1nrsvck5w8p7zt0hfkj",
+      "goldAmount": 0.0008738737951465051,
       "amount": 1,
       "amountWithoutGst": 0.9708737864077672,
-      "cgstAmount": 0.01456310679611651,
-      "sgstAmount": 0.01456310679611651,
-      "goldRate": 3820,
-      "paymentType": "SUBSCRIPTION",
+      "gstAmount": 0.029126213592233014,
+      "goldRate": 1111,
+      "paymentType": "PARTNER",
       "paymentStatus": "SUCCESS",
-      "createdAt": "2019-11-15T18:47:08.000Z",
-      "userId": "clafj9ktm399174cg5wwm72ouk"
+      "createdAt": "2023-07-19T11:39:41.000Z",
+      "userId": "no8y6elzzrgjc4n2d6f65iy0"
     }
   ]
 }
@@ -629,6 +627,13 @@ The data object in the response will always be an array even if there are zero o
 | --------------- | ----------------------------------------------------------------------------------------------------- |
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
 
+### Query Parameters
+
+| Name         | Description                                                     | Default                        |
+| ------------ | --------------------------------------------------------------- | ------------------------------ |
+| `startDate*` | The start date from which you want the transactions (YYY-MM-DD) | 30 days before The current day |
+| `endDate*`   | The end date to which you want the transactions (YYY-MM-DD)     | The current day                |
+
 ## Create Transaction
 
 ```shell
@@ -655,8 +660,7 @@ curl --location 'https://{BASE_URL}/partner/transaction/create' \
     "goldAmount": 0.0008738737951465051,
     "amount": 1,
     "amountWithoutGst": 0.9708737864077672,
-    "cgstAmount": 0.014563106796116507,
-    "sgstAmount": 0.014563106796116507,
+    "gstAmount": 0.029126213592233014,
     "goldRate": 1111,
     "paymentType": "PARTNER",
     "paymentStatus": "SUCCESS",
