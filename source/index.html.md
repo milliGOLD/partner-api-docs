@@ -29,9 +29,9 @@ With our API, you can access and manipulate various aspects of milliGOLD account
 
 - Transactions: Create new transactions with ease by specifying the registered mobile number, amount, and payment type. You can also fetch recent transaction details using the customer's mobile number.
 
-- Subscription Plans: Set up recurring payment plans by creating new subscriptions. Define the customer's name, email address, mobile number, amount, debit date, and duration for seamless subscription management.
+<!-- - Subscription Plans: Set up recurring payment plans by creating new subscriptions. Define the customer's name, email address, mobile number, amount, debit date, and duration for seamless subscription management.
 
-- Redemption Requests: Enable customers to redeem their gold by submitting requests via the API. Specify the registered mobile number, gold gram quantity, and redemption type such as Coin/Bar, Jewelry Shop, RBI Gold Bond, Bank Settlement, or Reward Points.
+- Redemption Requests: Enable customers to redeem their gold by submitting requests via the API. Specify the registered mobile number, gold gram quantity, and redemption type such as Coin/Bar, Jewelry Shop, RBI Gold Bond, Bank Settlement, or Reward Points. -->
 
 - Profile and Banking Information: Update and maintain customer profiles with details such as full name, date of birth, gender, email address, mobile number, address, and pin code. Additionally, store bank account information, including the account number, account name, and IFSC code.
 
