@@ -200,8 +200,7 @@ curl --location 'https://{BASE_URL}/gold/rate' \
   "success": true,
   "data": {
     "rate": 1111,
-    "cgstRate": 0.015,
-    "sgstRate": 0.015,
+    "gstRate": 0.03,
     "updatedAt": "2023-01-05T09:17:03.459Z"
   }
 }
