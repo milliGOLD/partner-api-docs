@@ -146,7 +146,7 @@ The rate limit error Response from the Partner API will include the following he
 ## Create Access Token
 
 ```shell
-curl --location 'https://{BASE_URL}/auth/token' \
+curl --location --request POST 'https://{BASE_URL}/auth/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'partnerId=<your partner ID>' \
 --data-urlencode 'partnerSecret=<your partner secret>'
@@ -189,7 +189,7 @@ This endpoint will create an access token, which should be used to authorize you
 ## Get Gold Rate
 
 ```shell
-curl --location 'https://{BASE_URL}/gold/rate' \
+curl --location --request GET 'https://{BASE_URL}/gold/rate' \
 --header 'Authorization: Bearer <your access token here>'
 ```
 
@@ -223,7 +223,7 @@ This endpoint will fetch the current gold rate.
 ## Get User Info
 
 ```shell
-curl --location 'https://{BASE_URL}/user/info/{MOBILE_NUMBER}' \
+curl --location --request GET 'https://{BASE_URL}/user/info/{MOBILE_NUMBER}' \
 --header 'Authorization: Bearer <your access token here>'
 ```
 
@@ -273,7 +273,7 @@ This endpoint will fetch information about the user with the given mobile number
 ## Create User
 
 ```shell
-curl --location 'https://{BASE_URL}/partner/user/create' \
+curl --location --request POST 'https://{BASE_URL}/user/create' \
 --header 'Authorization: Bearer <your access token here>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -424,7 +424,7 @@ These values represent different gender identities or options for the `gender` f
 ## Update User
 
 ```shell
-curl --location 'https://{BASE_URL}/partner/user/update/{MOBILE_NUMBER}' \
+curl --location --request PATCH 'https://{BASE_URL}/user/update/{MOBILE_NUMBER}' \
 --header 'Authorization: Bearer <your access token here>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -562,7 +562,7 @@ These values represent different gender identities or options for the `gender` f
 ## Get User Transactions
 
 ```shell
-curl --location 'https://{BASE_URL}/transaction/{MOBILE_NUMBER}?startDate=2023-06-01&endDate=2023-07-31' \
+curl --location --request GET 'https://{BASE_URL}/transaction/{MOBILE_NUMBER}?startDate=2023-06-01&endDate=2023-07-31' \
 --header 'Authorization: Bearer <your access token here>'
 ```
 
@@ -636,9 +636,8 @@ The data object in the response will always be an array even if there are zero o
 ## Create Transaction
 
 ```shell
-curl --location 'https://{BASE_URL}/partner/transaction/create' \
+curl --location --request POST 'https://{BASE_URL}/transaction/create' \
 --header 'Authorization: Bearer <your access token here>' \
---header 'Content-Type: application/json' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "data": {
@@ -683,7 +682,7 @@ This endpoint will create a new sale transaction and credit the gold amount to t
 
 ### HTTP Request
 
-`POST https://{BASE_URL}/user/transaction/create`
+`POST https://{BASE_URL}/transaction/create`
 
 ### Headers
 
