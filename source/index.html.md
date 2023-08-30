@@ -628,10 +628,10 @@ The data object in the response will always be an array even if there are zero o
 
 ### Query Parameters
 
-| Name         | Description                                                     | Default                        |
-| ------------ | --------------------------------------------------------------- | ------------------------------ |
-| `startDate*` | The start date from which you want the transactions (YYY-MM-DD) | 30 days before The current day |
-| `endDate*`   | The end date to which you want the transactions (YYY-MM-DD)     | The current day                |
+| Name        | Description                                                     | Default                        |
+| ----------- | --------------------------------------------------------------- | ------------------------------ |
+| `startDate` | The start date from which you want the transactions (YYY-MM-DD) | 30 days before The current day |
+| `endDate`   | The end date to which you want the transactions (YYY-MM-DD)     | The current day                |
 
 ## Create Transaction
 
