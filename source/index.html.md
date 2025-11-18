@@ -85,9 +85,9 @@ The response will be JSON formatted. For more details, see the related [Create A
 
 The base URL for requests to the partner API is given below and should be followed by the endpoint path.
 
-| Sandbox                                  | Production                       |
-| ---------------------------------------- | -------------------------------- |
-| https://api-sandbox.milligold.in/partner | https://api.milligold.in/partner |
+| Sandbox                                      | Production                           |
+| -------------------------------------------- | ------------------------------------ |
+| https://api-sandbox.milligold.in/api/partner | https://api.milligold.in/api/partner |
 
 ### Authorization
 
@@ -372,7 +372,7 @@ This endpoint will create a new user with the given mobile number and inputted u
 | `Authorization` | The authorization header used to authenticate partners. Needs to be `Bearer <your access token here>` |
 
 <aside class="notice">
-A '*' next to a property signifies that it is a required property 
+A '*' next to a property signifies that it is a required property
 </aside>
 
 ### Body
@@ -699,5 +699,5 @@ This endpoint will create a new sale transaction and credit the gold amount to t
 | `amount*`       | The rupee amount                            |
 
 <aside class="notice">
-A '*' next to a property signifies that it is a required property 
+A '*' next to a property signifies that it is a required property
 </aside>
